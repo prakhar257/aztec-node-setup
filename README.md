@@ -58,7 +58,9 @@ Step 2: Update \& Install Tools
 
 
 
-```apt update \&\& apt upgrade -y
+```bash
+
+apt update \&\& apt upgrade -y
 
 apt install curl git ufw unzip wget htop jq build-essential -y
 
@@ -76,7 +78,9 @@ Step 3: Create Aztec Folder
 
 
 
-```mkdir aztec
+```bash
+
+mkdir aztec
 
 cd aztec```
 
