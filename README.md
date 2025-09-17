@@ -6,31 +6,57 @@
 
 
 
-###### \# 🌐 Aztec Node Setup (Beginner Friendly)
+\# 🌐 Aztec Node Setup (Beginner Friendly)
 
-###### 
 
-###### This guide explains how to run an Aztec node.  
 
-###### Only copy-paste commands are in code blocks with the GitHub “copy” button.
+This guide explains how to run an Aztec node step by step.  
 
-###### 
+👉 All commands are shown in copyable code boxes.  
 
-###### ---
+👉 Each step tells you \*\*where to paste the command\*\*.
 
-###### 
 
-###### \## Step 1: Connect to Server (VPS only)
 
-###### 
+---
 
-###### ```bash
 
-###### ssh root@YOUR\_SERVER\_IP
+
+\## Step 1: Connect to Your Server (VPS only)
+
+
+
+👉 \*\*Paste this into your laptop terminal\*\* (replace `YOUR\_SERVER\_IP` with your VPS IP):
+
+
+
+```bash
+
+ssh root@YOUR\_SERVER\_IP
+
+
+
+
+
+Enter your VPS password.
+
+Now you’re inside your VPS terminal.
+
+
+
+👉 If you’re using your own computer (Linux/Mac/WSL), just open Terminal and skip this step.
+
+
 
 
 
 Step 2: Update \& Install Tools
+
+
+
+👉 Paste this into your VPS or personal device terminal:
+
+
 
 apt update \&\& apt upgrade -y
 
@@ -42,11 +68,27 @@ apt install docker-compose -y
 
 
 
-Step 3: Make Folder
+
+
+Step 3: Create Aztec Folder
+
+
+
+👉 Paste into your VPS or personal device terminal:
+
+
 
 mkdir aztec
 
-cd Aztec
+cd aztec
+
+
+
+This creates a folder called aztec and moves you inside it.
+
+All files will be created inside this folder.
+
+
 
 
 
@@ -54,7 +96,7 @@ Step 4: Create .env File
 
 
 
-Open file:
+👉 Paste into your VPS or personal device terminal:
 
 
 
@@ -62,9 +104,9 @@ nano .env
 
 
 
+This opens a blank file in the editor.
 
-
-Paste inside file (⚠️ do not paste into terminal):
+👉 Now paste this inside the file (do NOT paste into terminal):
 
 
 
@@ -80,9 +122,31 @@ P2P\_IP=YOUR\_SERVER\_IP
 
 
 
+Replace placeholders with your values:
 
 
-Save in nano: CTRL+O, Enter → CTRL+X.
+
+YOUR\_SEPOLIA\_RPC → from Alchemy/Infura/QuickNode
+
+
+
+YOUR\_BEACON\_RPC → beacon RPC URL
+
+
+
+YOUR\_PRIVATE\_KEY → your wallet’s private key (SECRET)
+
+
+
+YOUR\_WALLET\_ADDRESS → your Ethereum address
+
+
+
+YOUR\_SERVER\_IP → VPS IP (or 127.0.0.1 if running locally)
+
+
+
+👉 Save file in nano: CTRL+O, Enter → exit with CTRL+X
 
 
 
@@ -90,7 +154,7 @@ Step 5: Create docker-compose.yml
 
 
 
-Open file:
+👉 Paste into your VPS or personal device terminal:
 
 
 
@@ -98,9 +162,11 @@ nano docker-compose.yml
 
 
 
+This opens another blank file.
 
 
-Paste inside file:
+
+👉 Now paste this inside the file (do NOT paste into terminal):
 
 
 
@@ -128,15 +194,23 @@ services:
 
 
 
+👉 Save file in nano: CTRL+O, Enter → exit with CTRL+X
+
+
+
 Step 6: Run Node
+
+
+
+👉 Paste into your VPS or personal device terminal (inside aztec folder):
+
+
 
 docker compose up -d
 
 
 
-
-
-Check logs:
+👉 Check logs (paste into terminal):
 
 
 
@@ -144,7 +218,23 @@ docker logs -f aztec-sequencer
 
 
 
-Optional: Open Ports (VPS only)
+If you see:
+
+Downloaded L2 Block...
+
+
+
+🎉 Your node is working.
+
+
+
+Step 7: Open Ports (VPS only)
+
+
+
+👉 Paste into your VPS terminal:
+
+
 
 ufw allow ssh
 
@@ -158,13 +248,29 @@ ufw enable
 
 
 
+Step 8: Optional — Dozzle Log Viewer
 
 
-Optional: Dozzle Log Viewer
+
+👉 Paste into your VPS or personal device terminal:
+
+
 
 docker run -d --name dozzle \\
 
 &nbsp; -v /var/run/docker.sock:/var/run/docker.sock \\
 
 &nbsp; -p 9999:8080 amir20/dozzle:latest
+
+
+
+Then open in browser:
+
+
+
+VPS → http://YOUR\_SERVER\_IP:9999
+
+
+
+Local → http://localhost:9999
 
